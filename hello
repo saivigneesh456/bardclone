@@ -1,0 +1,45 @@
+from bardapi import BardCookies
+import streamlit as st
+from streamlit_chat import message
+import os
+
+
+cookie_dict = {
+    "__Secure-1PSID": "dwiaIYAl1V_NRlGPSqdk1NH68n9S158u_xqdKxviTcgqiBFU31sX_RBO8nUmdnxeZVPURQ.",
+    "__Secure-1PSIDTS": "sidts-CjEBPVxjSqcTM-WTDEBLdZPmd34Tq2mwHbNxhVSWcHKGQdpAZJVG_i6zGzVCuQLU7Pd_EAA",
+    "__Secure-1PSIDCC": "ACA-OxM-xcr4e4WuMuetmIkhMwqNunE2WUC41k7v62mMIcFM-wahBmDBaGklrchbW7wZ317eMcs",
+    # Any cookie values you want to pass session object.
+}
+
+bard = BardCookies(cookie_dict=cookie_dict)
+
+message = input("Enter your prompt:")
+answer = bard.get_answer(str(message))
+print(answer)
+st.title("Hello Chat Bot")
+def response_api(promot):
+    message = bard.get_answer(str(message))['content']
+    return message
+
+def user_input():
+    input_text =st.text_input("enter yor question?")
+    return input_text
+
+if 'generate' not in st.session_state:
+    st.session_state['generate']=[]
+if 'generate' not in st.session_state:
+    st.session_state['past']=[]
+
+user_text = user_input()
+
+if user_text:
+    output = response_api(user_text)
+    st.session_state.generate.append(output)
+    st.session_state.generate.append(user_text)
+
+if st.session_state['generate']:
+
+    
+    for i in range(len(st.session_state['generate']) -1,-1,-1):
+        message(st.session_state["past"][i], is_user=True, key=str(i) + '_user')
+        message(st.session_state["generate"][i],key=str(i))
