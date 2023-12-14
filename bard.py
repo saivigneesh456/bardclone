@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_chat import message
 import os
 
-os.environ['_BARD_API_KEY'] = "dwgK4FeK3ArqMEnVzsVehzCpKcZbqfP8FkStLwx5X5d99xCEbye9nlsxKGj5patkbtm35A."
+os.environ['_BARD_API_KEY'] = "eQiPbrgC4C1ebU9e_FN2XrLieBSv0dNsc3tTocXXbbi2P9fe04jrl9y5EufECaE028iP-Q."
 
 def response_api(prompt):
     response_message = Bard().get_answer(str(prompt))['content']
